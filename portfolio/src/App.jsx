@@ -1,181 +1,89 @@
-import { useState } from 'react'
 import './App.css'
-import CareerEvolution from './components/CareerEvolution.jsx'
 import innyPortrait from './assets/inny-s.jpg'
 
 const navigationItems = [
-  { href: '#evolution', label: 'The Evolution' },
-  { href: '#labs', label: 'Technical Labs' },
-  { href: '#grc', label: 'Strategic GRC Engagements' },
-  { href: '#entrepreneurship', label: 'Entrepreneurship' },
+  { href: '#value', label: 'Value Proposition' },
+  { href: '#evolution', label: 'Career Evolution' },
+  { href: '#engagements', label: 'Strategic Engagements' },
+  { href: '#stack', label: 'Technical Stack' },
 ]
 
-const capabilityCards = [
+const evolutionStages = [
   {
-    title: 'Threat-Led Technical Labs',
+    title: 'Systems Engineering & Infrastructure',
     description:
-      'Immersive blue team, red team, and incident response labs that translate technical depth into operational readiness.',
-    tags: ['SOC Analytics', 'Threat Hunting', 'Adversary Simulation'],
+      'The foundation of my journey, centered on cloning hardware, configuring Windows environments, and mastering the physical layer of technology.',
   },
   {
-    title: 'Operational Research',
+    title: 'Full-Stack Software Development',
     description:
-      'Security research, workflow design, and platform hardening focused on measurable resilience and executive visibility.',
-    tags: ['Detection Engineering', 'Forensics', 'Security Architecture'],
+      'Architecting end-to-end solutions using the MERN stack. I do not just audit software; I understand how it is built, deployed, and exploited.',
   },
   {
-    title: 'Strategic Transformation',
+    title: 'Cybersecurity & SOC Operations',
     description:
-      'Governance, risk, and compliance programs aligned to global operating environments, board priorities, and regulatory maturity.',
-    tags: ['Policy Design', 'Control Mapping', 'Risk Governance'],
-  },
-]
-
-const defenseLabCards = [
-  {
-    title: 'Network Engineering',
-    description:
-      'Designed resilient network architectures in Cisco Packet Tracer to model segmentation, routing stability, and dependable security-aware connectivity.',
-    tools: 'Cisco Packet Tracer',
+      'Hands-on defensive and offensive security practice, from Cisco network architecture to threat hunting with Wazuh and Elastic Stack.',
   },
   {
-    title: 'SOC Operations',
+    title: 'Global GRC & Risk Leadership',
     description:
-      'Used Wazuh and Elastic Stack to strengthen threat detection, correlate telemetry, and improve visibility across monitored environments.',
-    tools: 'Wazuh and Elastic Stack',
-  },
-  {
-    title: 'Vulnerability Management',
-    description:
-      'Performed infrastructure auditing with Nmap and Nessus to identify exposure points, validate services, and prioritize remediation activity.',
-    tools: 'Nmap and Nessus',
-  },
-  {
-    title: 'Web Security',
-    description:
-      'Applied Burp Suite to capture and analyze malicious traffic, inspect web application behavior, and support practical testing workflows.',
-    tools: 'Burp Suite',
+      'The pinnacle of my practice, focused on authoring risk registers, performing third-party audits, and designing multi-jurisdictional compliance roadmaps.',
   },
 ]
 
-const grcCaseStudies = [
+const caseStudies = [
   {
-    organization: 'NIMC',
-    region: 'Africa',
-    role: 'Identity Risk Auditor',
-    challenge:
-      'Conducted diagnostic assessments across an identity environment containing more than 100 million records following API exposure, balancing public-sector sensitivity, scale, and remediation urgency.',
-    outcome: 'Produced a three-year investment roadmap for structured risk reduction, resilience improvement, and control modernization.',
+    category: 'GovTech & Identity',
+    geography: 'Africa',
+    focus: 'Lead GRC Auditor for the NIMC',
+    problem: 'API data exposure involving 100 million national identity records.',
+    solution:
+      'Designed an immediate API isolation strategy and a three-year cybersecurity investment roadmap aligned with NDPA and NDPR frameworks.',
   },
   {
-    organization: 'Revolut',
-    region: 'Europe',
-    role: 'Senior Fintech Risk Consultant',
-    challenge:
-      'Analyzed payment logic flaws valued at 20 million dollars while assessing DORA readiness across a high-velocity fintech environment operating across multiple jurisdictions.',
-    outcome: 'Delivered a unified cross-region control baseline to improve consistency, governance clarity, and operational readiness.',
+    category: 'Digital Banking & Fintech',
+    geography: 'Europe',
+    focus: 'Senior Risk Consultant for Revolut',
+    problem: 'A 20 million dollar payment logic flaw and complex insider threat scenarios.',
+    solution:
+      'Harmonized security operations across more than 35 global markets and established a DORA-ready control baseline.',
   },
   {
-    organization: 'Epic Systems',
-    region: 'North America',
-    role: 'Healthcare GRC Strategist',
-    challenge:
-      'Evaluated ransomware resilience and HIPAA compliance within a healthcare context where operational continuity, regulatory confidence, and security assurance had to be addressed simultaneously.',
-    outcome: 'Developed a Ransomware Resilience Certification framework to formalize preparedness expectations and strengthen strategic assurance.',
-  },
-]
-
-const payledgerPillars = [
-  {
-    title: 'The Mission',
-    description:
-      'Building a blockchain-based cross-border payment infrastructure designed to improve trust, settlement confidence, and global transaction accessibility.',
-  },
-  {
-    title: 'Founder & CEO',
-    description:
-      'Inny Stevens leads Payledger with a strategic blend of product vision, regulatory discipline, and security-first execution.',
-  },
-  {
-    title: 'The Security Link',
-    description:
-      'GRC and cybersecurity expertise shape Payledger to be secure by design, with controls, assurance logic, and compliance planning aligned to global financial regulations from the outset.',
+    category: 'Critical Healthcare Infrastructure',
+    geography: 'North America',
+    focus: 'Healthcare GRC Strategist for Epic Systems',
+    problem: 'Ransomware resilience in the wake of systemic supply chain breaches.',
+    solution:
+      'Developed a Ransomware Resilience Certification framework and ensured HIPAA and NIST SP 800-161 alignment for global hospital clients.',
   },
 ]
 
-const academicCredentials = [
-  'University of the People (Computer Science)',
-  'TS Academy (Cybersecurity)',
-  'Inegben Academy (GRC Program)',
+const stackGroups = [
+  {
+    title: 'Frameworks',
+    items: ['NIST CSF 2.0', 'ISO 27001:2022', 'ISO 31000', 'NIST SP 800-161'],
+  },
+  {
+    title: 'Regulatory',
+    items: ['GDPR', 'HIPAA', 'NDPR/NDPA', 'DORA'],
+  },
+  {
+    title: 'Security Tools',
+    items: ['Wazuh', 'Elastic Stack', 'Nmap', 'Nessus', 'Burp Suite', 'Cisco Packet Tracer'],
+  },
+  {
+    title: 'Development',
+    items: ['React.js', 'Node.js', 'MongoDB', 'Linux (Ubuntu 22.04)'],
+  },
 ]
 
-const initialFormState = {
-  name: '',
-  email: '',
-  summary: '',
-}
+const footerLinks = [
+  { label: 'LinkedIn', href: '#' },
+  { label: 'GitHub', href: '#' },
+  { label: 'Payledger', href: '#leadership' },
+]
 
 function App() {
-  const [formData, setFormData] = useState(initialFormState)
-  const [formErrors, setFormErrors] = useState({})
-  const [submitMessage, setSubmitMessage] = useState('')
-
-  function handleInputChange(event) {
-    const { name, value } = event.target
-
-    setFormData((current) => ({
-      ...current,
-      [name]: value,
-    }))
-
-    setFormErrors((current) => {
-      if (!current[name]) {
-        return current
-      }
-
-      const nextErrors = { ...current }
-      delete nextErrors[name]
-      return nextErrors
-    })
-  }
-
-  function validateForm(values) {
-    const errors = {}
-    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
-
-    if (!values.name.trim()) {
-      errors.name = 'Please provide your name.'
-    }
-
-    if (!values.email.trim()) {
-      errors.email = 'Please provide your email address.'
-    } else if (!emailPattern.test(values.email.trim())) {
-      errors.email = 'Please provide a valid email address.'
-    }
-
-    if (!values.summary.trim()) {
-      errors.summary = 'Please describe the engagement objective.'
-    } else if (values.summary.trim().length < 20) {
-      errors.summary = 'Please provide a more detailed engagement summary.'
-    }
-
-    return errors
-  }
-
-  function handleSubmit(event) {
-    event.preventDefault()
-
-    const errors = validateForm(formData)
-    setFormErrors(errors)
-
-    if (Object.keys(errors).length > 0) {
-      setSubmitMessage('Please correct the highlighted fields before submitting.')
-      return
-    }
-
-    setSubmitMessage('Validation complete. This inquiry form is ready for secure backend integration.')
-    setFormData(initialFormState)
-  }
 
   return (
     <div className="app-shell">
@@ -184,10 +92,10 @@ function App() {
 
       <header className="site-header">
         <a className="brand" href="#top">
-          <span className="brand-mark">DF</span>
+          <span className="brand-mark">IS</span>
           <span>
-            <strong>Digital Frontier Security</strong>
-            <small>Premium cybersecurity portfolio template</small>
+            <strong>Inny Stevens</strong>
+            <small>Engineering resilience. Governing global risk.</small>
           </span>
         </a>
 
@@ -203,20 +111,20 @@ function App() {
       <main id="top">
         <section className="hero-panel">
           <div className="hero-copy">
-            <p className="eyebrow">Cybersecurity strategy, engineering, and trust</p>
-            <h1>Security leadership presented with technical depth and executive polish.</h1>
+            <p className="eyebrow">Strategic cybersecurity and global governance leadership</p>
+            <h1>Engineering Resilience. Governing Global Risk.</h1>
             <p className="hero-text">
-              Digital Frontier Security is a dark-mode portfolio experience for Inny Stevens,
-              designed to showcase technical evolution, operational credibility, and
-              governance maturity in one decisive narrative.
+              From hardware architecture to multi-continental GRC strategy. I translate
+              technical complexity into boardroom clarity for the world&apos;s most
+              regulated sectors.
             </p>
 
             <div className="hero-actions">
-              <a className="button button-primary" href="#contact">
-                Request a Security Consultation
+              <a className="button button-primary" href="#engagements">
+                View Strategic Engagements
               </a>
-              <a className="button button-secondary" href="#evolution">
-                Explore the Career Evolution
+              <a className="button button-secondary" href="#leadership">
+                Download Executive Brief
               </a>
             </div>
           </div>
@@ -231,31 +139,126 @@ function App() {
             </div>
 
             <div className="hero-card">
-              <span className="card-label">Core positioning</span>
+              <span className="card-label">Executive profile</span>
               <ul>
-                <li>Security-first messaging for SOC, offensive security, and forensics</li>
-                <li>Case-study structure for labs, research, and notable outcomes</li>
-                <li>Executive-ready framing for consulting and full-time opportunities</li>
+                <li>Multi-disciplinary command across engineering, cyber operations, and GRC</li>
+                <li>Strategic delivery for regulated sectors spanning Africa, Europe, and North America</li>
+                <li>Board-ready communication grounded in technical depth and operational realism</li>
               </ul>
             </div>
           </div>
         </section>
 
-        <section className="section">
+        <section id="value" className="section value-section">
           <div className="section-heading">
-            <p className="eyebrow">Signature strengths</p>
-            <h2>Built for serious cybersecurity storytelling.</h2>
+            <p className="eyebrow">The value proposition</p>
+            <h2>The Bridge Between Code and Compliance.</h2>
           </div>
 
-          <div className="card-grid">
-            {capabilityCards.map((card) => (
-              <article key={card.title} className="info-card">
-                <h3>{card.title}</h3>
-                <p>{card.description}</p>
+          <div className="value-panel">
+            <p>
+              Most organizations view security as a technical hurdle. I view it as a
+              foundational competitive advantage. With a career rooted in systems
+              engineering and full-stack development, I possess the rare ability to audit a
+              system from the motherboard up to the global regulatory framework.
+            </p>
+            <p>
+              Whether it is navigating the intricacies of the NIST CSF 2.0, ensuring DORA
+              readiness in European Fintech, or securing 100 million plus records for
+              national identity commissions, I provide the oversight necessary for
+              high-stakes operations to scale with confidence.
+            </p>
+          </div>
+        </section>
+
+        <section id="evolution" className="section evolution-section">
+          <div className="section-heading">
+            <p className="eyebrow">The career evolution</p>
+            <h2>A Decade of Technical Mastery.</h2>
+          </div>
+
+          <div className="timeline">
+            {evolutionStages.map((stage, index) => (
+              <article key={stage.title} className="timeline-item">
+                <div className="timeline-marker" aria-hidden="true">
+                  <span>{String(index + 1).padStart(2, '0')}</span>
+                </div>
+                <div className="timeline-content">
+                  <p className="timeline-era">{stage.title}</p>
+                  <p>{stage.description}</p>
+                </div>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section id="engagements" className="section grc-section">
+          <div className="section-heading">
+            <p className="eyebrow">Strategic case studies</p>
+            <h2>Global GRC Engagements.</h2>
+          </div>
+
+          <div className="grc-grid">
+            {caseStudies.map((study) => (
+              <article key={study.focus} className="grc-card">
+                <div className="grc-card-header">
+                  <div>
+                    <p className="grc-region">
+                      {study.category} ({study.geography})
+                    </p>
+                    <h3>{study.focus}</h3>
+                  </div>
+                  <span className="tag">Extreme Complexity</span>
+                </div>
+
+                <div className="grc-content">
+                  <div>
+                    <p className="grc-label">The Problem</p>
+                    <p>{study.problem}</p>
+                  </div>
+                  <div>
+                    <p className="grc-label">The Solution</p>
+                    <p>{study.solution}</p>
+                  </div>
+                </div>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section id="leadership" className="section leadership-section">
+          <div className="section-heading">
+            <p className="eyebrow">Entrepreneurship</p>
+            <h2>Innovation in Fintech.</h2>
+          </div>
+
+          <div className="leadership-panel">
+            <p>
+              As the Founder and CEO of Payledger, I lead a multidisciplinary team in
+              building secure, blockchain-based cross-border payment infrastructure.
+            </p>
+            <p>
+              My dual role as a founder and a security expert ensures that every product we
+              build is Secure by Design, compliant with global financial regulations, and
+              resilient against the sophisticated threat landscape of modern finance.
+            </p>
+          </div>
+        </section>
+
+        <section id="stack" className="section stack-section">
+          <div className="section-heading">
+            <p className="eyebrow">The technical stack</p>
+            <h2>Specialized Proficiency.</h2>
+          </div>
+
+          <div className="stack-grid">
+            {stackGroups.map((group) => (
+              <article key={group.title} className="stack-card">
+                <h3>{group.title}</h3>
                 <div className="tag-row">
-                  {card.tags.map((tag) => (
-                    <span key={tag} className="tag">
-                      {tag}
+                  {group.items.map((item) => (
+                    <span key={item} className="tag">
+                      {item}
                     </span>
                   ))}
                 </div>
@@ -264,182 +267,34 @@ function App() {
           </div>
         </section>
 
-        <CareerEvolution />
-
-        <section id="labs" className="section">
+        <section className="section cta-section">
           <div className="section-heading">
-            <p className="eyebrow">Technical Defense Lab</p>
-            <h2>Hands-on security experience presented through focused operational domains.</h2>
+            <p className="eyebrow">Final call to action</p>
+            <h2>Solving Extreme Complexity.</h2>
           </div>
 
-          <div className="defense-lab-grid">
-            {defenseLabCards.map((card) => (
-              <article key={card.title} className="defense-card" tabIndex="0">
-                <div className="defense-card-top">
-                  <span className="tag">Technical Proficiency</span>
-                  <p className="defense-tools">{card.tools}</p>
-                </div>
-                <h3>{card.title}</h3>
-                <p>{card.description}</p>
-              </article>
-            ))}
-          </div>
-        </section>
-
-        <section id="grc" className="section grc-section">
-          <div className="section-heading">
-            <p className="eyebrow">Global GRC Strategic Engagements</p>
-            <h2>Executive case studies shaped in environments defined by extreme complexity.</h2>
-            <p className="section-intro">
-              These engagements demonstrate the ability of Inny Stevens to lead strategic
-              risk thinking across public-sector identity, fintech regulation, and
-              healthcare resilience where operational scale, regulatory pressure, and
-              stakeholder consequence intersect.
+          <div className="cta-panel">
+            <p>
+              Whether you are a government entity securing a nation&apos;s data or a Fintech
+              leader scaling across borders, I provide the technical depth and strategic
+              foresight required to remain resilient. Let us discuss how I can fortify your
+              GRC posture.
             </p>
+            <a className="button button-primary" href="mailto:hello@payledger.io">
+              Initiate Professional Inquiry
+            </a>
           </div>
-
-          <div className="grc-grid">
-            {grcCaseStudies.map((study) => (
-              <article key={study.organization} className="grc-card">
-                <div className="grc-card-header">
-                  <div>
-                    <p className="grc-region">
-                      {study.organization} ({study.region})
-                    </p>
-                    <h3>{study.role}</h3>
-                  </div>
-                  <span className="tag">Extreme Complexity</span>
-                </div>
-
-                <div className="grc-content">
-                  <div>
-                    <p className="grc-label">Mandate</p>
-                    <p>{study.challenge}</p>
-                  </div>
-                  <div>
-                    <p className="grc-label">Outcome</p>
-                    <p>{study.outcome}</p>
-                  </div>
-                </div>
-              </article>
-            ))}
-          </div>
-        </section>
-
-        <section id="entrepreneurship" className="section section-split">
-          <div className="section-heading">
-            <p className="eyebrow">Entrepreneurship</p>
-            <h2>Payledger</h2>
-            <p className="section-intro">
-              Payledger is the venture expression of a founder operating at the
-              intersection of financial innovation, security architecture, and global
-              governance discipline.
-            </p>
-          </div>
-
-          <div className="payledger-panel">
-            <div className="payledger-intro">
-              <p className="payledger-label">Founder &amp; CEO</p>
-              <h3>Secure financial infrastructure built for cross-border trust.</h3>
-              <p>
-                As Founder and CEO, Inny Stevens is building Payledger as a
-                blockchain-based cross-border payment infrastructure with security,
-                resilience, and regulatory readiness embedded into the business model.
-              </p>
-            </div>
-
-            <div className="payledger-grid">
-              {payledgerPillars.map((pillar) => (
-                <article key={pillar.title} className="payledger-card">
-                  <p className="payledger-label">{pillar.title}</p>
-                  <h3>{pillar.title === 'Founder & CEO' ? 'Leadership and execution' : pillar.title}</h3>
-                  <p>{pillar.description}</p>
-                </article>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        <section id="contact" className="section contact-section">
-          <div className="section-heading">
-            <p className="eyebrow">Contact</p>
-            <h2>Open a conversation for consulting, audits, or strategic collaboration.</h2>
-          </div>
-
-          <form className="contact-form" noValidate onSubmit={handleSubmit}>
-            <label>
-              <span>Name</span>
-              <input
-                type="text"
-                name="name"
-                placeholder="Your name"
-                autoComplete="name"
-                value={formData.name}
-                onChange={handleInputChange}
-                aria-invalid={Boolean(formErrors.name)}
-                aria-describedby={formErrors.name ? 'name-error' : undefined}
-              />
-              {formErrors.name ? (
-                <small id="name-error" className="field-error">
-                  {formErrors.name}
-                </small>
-              ) : null}
-            </label>
-            <label>
-              <span>Email</span>
-              <input
-                type="email"
-                name="email"
-                placeholder="name@example.com"
-                autoComplete="email"
-                inputMode="email"
-                value={formData.email}
-                onChange={handleInputChange}
-                aria-invalid={Boolean(formErrors.email)}
-                aria-describedby={formErrors.email ? 'email-error' : undefined}
-              />
-              {formErrors.email ? (
-                <small id="email-error" className="field-error">
-                  {formErrors.email}
-                </small>
-              ) : null}
-            </label>
-            <label className="full-width">
-              <span>Engagement summary</span>
-              <textarea
-                name="summary"
-                rows="5"
-                placeholder="Describe the security objective, current environment, and desired outcome."
-                value={formData.summary}
-                onChange={handleInputChange}
-                aria-invalid={Boolean(formErrors.summary)}
-                aria-describedby={formErrors.summary ? 'summary-error' : undefined}
-              />
-              {formErrors.summary ? (
-                <small id="summary-error" className="field-error">
-                  {formErrors.summary}
-                </small>
-              ) : null}
-            </label>
-            <button type="submit" className="button button-primary">
-              Submit Inquiry
-            </button>
-            {submitMessage ? <p className="form-status">{submitMessage}</p> : null}
-          </form>
         </section>
       </main>
 
       <footer className="site-footer">
-        <div>
-          <p className="eyebrow">Academic credentials</p>
-          <h2>Formal academic foundation</h2>
-        </div>
-
-        <div className="credential-row">
-          {academicCredentials.map((credential) => (
-            <span key={credential} className="credential-badge">
-              {credential}
-            </span>
+        <p>&copy; 2026 Inny Stevens. All Rights Reserved.</p>
+        <p>Lagos, Nigeria | Global Consultant.</p>
+        <div className="footer-links">
+          {footerLinks.map((link) => (
+            <a key={link.label} href={link.href}>
+              {link.label}
+            </a>
           ))}
         </div>
       </footer>
