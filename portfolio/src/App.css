@@ -463,6 +463,46 @@ section { position: relative; overflow: hidden; }
 .stack-icon { width: 42px; height: 42px; background: linear-gradient(135deg, rgba(0, 71, 255, 0.28), rgba(0, 240, 255, 0.08)); border: 1px solid rgba(0, 240, 255, 0.18); border-radius: 12px; display: grid; place-items: center; font-size: 1.1rem; flex-shrink: 0; box-shadow: 0 0 14px rgba(0, 240, 255, 0.1); }
 .stack-card h3 { font-size: 0.97rem; color: #fff; }
 
+/* ═══ ENGAGEMENT MODELS (Pricing) ═══════════════════════════ */
+.plans-grid { display: grid; grid-template-columns: repeat(2, 480px); gap: 32px; justify-content: center; }
+.plan-card {
+  background: var(--card); border: 1px solid rgba(0, 240, 255, 0.1);
+  border-radius: 28px; padding: 48px; position: relative; overflow: hidden;
+  transition: transform 0.3s var(--ease), border-color 0.3s;
+}
+.plan-card.p { border-color: rgba(0, 240, 255, 0.3); box-shadow: 0 0 50px rgba(0, 71, 255, 0.15); }
+.plan-card:hover { transform: translateY(-8px); border-color: var(--cyan); }
+.plan-tag {
+  position: absolute; top: 24px; right: 24px; padding: 6px 14px;
+  border-radius: 999px; background: rgba(0, 240, 255, 0.1);
+  color: var(--cyan); font-size: 0.75rem; font-weight: 800; text-transform: uppercase;
+}
+.plan-card h3 { font-size: 1.6rem; margin-bottom: 12px; }
+.plan-card .price { font-size: 2.8rem; font-weight: 800; color: #fff; margin-bottom: 24px; display: flex; align-items: baseline; gap: 8px; }
+.plan-card .price small { font-size: 1rem; color: var(--silver2); font-weight: 500; }
+.plan-features { display: grid; gap: 16px; margin-bottom: 40px; }
+.plan-feat { display: flex; align-items: flex-start; gap: 12px; color: var(--silver); font-size: 0.95rem; }
+.plan-feat::before { content: '✓'; color: var(--cyan); font-weight: 900; }
+
+/* ═══ TECH INSIGHTS (Blog) ══════════════════════════════════ */
+.insights-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+.insight-card {
+  background: var(--card); border-radius: 24px; overflow: hidden;
+  border: 1px solid rgba(0, 240, 255, 0.08); transition: transform 0.3s;
+}
+.insight-card:hover { transform: translateY(-6px); border-color: rgba(0, 240, 255, 0.2); }
+.insight-img { position: relative; aspect-ratio: 16/9; overflow: hidden; }
+.insight-img img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s; }
+.insight-card:hover .insight-img img { transform: scale(1.05); }
+.insight-img::after { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, transparent 60%, rgba(7, 8, 15, 0.8)); }
+.insight-body { padding: 24px; }
+.insight-meta { font-size: 0.7rem; font-weight: 700; color: var(--cyan); text-transform: uppercase; letter-spacing: 0.15em; margin-bottom: 12px; display: block; }
+.insight-card h3 { font-size: 1.1rem; line-height: 1.4; margin-bottom: 14px; transition: color 0.2s; }
+.insight-card:hover h3 { color: var(--cyan); }
+.insight-link { font-size: 0.85rem; font-weight: 700; color: var(--white); display: flex; align-items: center; gap: 8px; }
+.insight-link::after { content: '→'; transition: transform 0.2s; }
+.insight-card:hover .insight-link::after { transform: translateX(4px); }
+
 /* ═══ CTA ═══════════════════════════════════════════════════ */
 .cta-section {
   min-height: 440px; display: flex; align-items: center;
@@ -522,12 +562,15 @@ section { position: relative; overflow: hidden; }
   .svc-grid { grid-template-columns: repeat(2, 1fr); }
   .process-grid { grid-template-columns: repeat(2, 1fr); }
   .process-grid::before { display: none; }
+  .plans-grid { grid-template-columns: 1fr; max-width: 480px; margin: 0 auto; }
+  .insights-grid { grid-template-columns: repeat(2, 1fr); }
   .foot-top { grid-template-columns: 1fr 1fr; }
 }
 @media (max-width: 860px) {
   .hero-grid, .value-grid, .lead-grid { grid-template-columns: 1fr; }
   .eng-grid { grid-template-columns: 1fr; }
   .stats-grid { grid-template-columns: repeat(2, 1fr); }
+  .insights-grid { grid-template-columns: 1fr; }
   .ghost { display: none; }
   .test-card { flex: 0 0 100%; }
   .sp { padding: 72px 0; }

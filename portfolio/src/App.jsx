@@ -1,12 +1,15 @@
 import { useEffect, useRef, useState } from 'react'
 import './App.css'
 import innyPortrait from './assets/inny-s.jpg'
+import insight1 from './assets/insight-1.png'
+import insight2 from './assets/insight-2.png'
 
 /* ─── Data ──────────────────────────────────────────────────── */
 const NAV_LINKS = [
   { href: '#about',       label: 'About'       },
   { href: '#evolution',   label: 'Career'      },
   { href: '#engagements', label: 'Engagements' },
+  { href: '#insights',    label: 'Insights'    },
   { href: '#stack',       label: 'Stack'       },
 ]
 
@@ -90,6 +93,53 @@ const STACK = [
   { icon: '⚖️', title: 'Regulatory',    tags: ['GDPR', 'HIPAA', 'NDPR / NDPA', 'DORA'] },
   { icon: '🔍', title: 'Security Tools', tags: ['Wazuh', 'Elastic Stack', 'Nmap', 'Nessus', 'Burp Suite', 'Cisco Packet Tracer'] },
   { icon: '💻', title: 'Development',   tags: ['React.js', 'Node.js', 'MongoDB', 'Linux (Ubuntu 22.04)'] },
+]
+
+const ENGAGEMENT_MODELS = [
+  {
+    title: 'Strategic Audit & Advisory',
+    price: 'Custom', period: 'Engagement',
+    tag: 'Roadmap Focus',
+    features: [
+      'Comprehensive gap analysis & risk register',
+      'NIST CSF 2.0 / ISO 27001 readiness',
+      'Regulatory compliance mapping (GDPR/DORA)',
+      'Executive remediation strategy'
+    ]
+  },
+  {
+    title: 'Fractional CISO & Governance',
+    price: 'Flexible', period: 'Retainer',
+    tag: 'Continuous Assurance',
+    popular: true,
+    features: [
+      'Ongoing board-level technical advisory',
+      'Security Operations (SOC) oversight',
+      'Third-party risk management (TPRM)',
+      'Incident response & recovery leadership'
+    ]
+  }
+]
+
+const TECH_INSIGHTS = [
+  {
+    img: insight1,
+    cat: 'Regulatory Compliance',
+    title: 'The Future of DORA: Harmonising Digital Resilience in EU Fintech',
+    date: 'April 2026'
+  },
+  {
+    img: insight2,
+    cat: 'Identity Security',
+    title: 'Identity Risk at Scale: Lessons from National ID Commission Breaches',
+    date: 'March 2026'
+  },
+  {
+    img: insight1, // Reusing if 3rd not gen'd
+    cat: 'Strategic GRC',
+    title: 'Engineering Governance: Moving from Reactive to Resilient Compliance',
+    date: 'February 2026'
+  }
 ]
 
 const LEAD_LIST = [
@@ -576,6 +626,70 @@ function Leadership() {
   )
 }
 
+/* ─── Engagement Models ─────────────────────────────────────── */
+function EngagementModels() {
+  return (
+    <section className="sp" id="models" style={{ background: 'var(--navy2)' }}>
+      <div className="circ" style={{ opacity: 0.2 }} />
+      <div className="wrap">
+        <div className="sh c" data-sr>
+          <span className="eye">Sovereign partnership</span>
+          <h2>Engagement Models.</h2>
+          <p className="sh-lead">Scalable strategic oversight tailored for enterprise governance and high-stakes technical operations.</p>
+        </div>
+        <div className="plans-grid">
+          {ENGAGEMENT_MODELS.map((p, i) => (
+            <div className={`plan-card${p.popular ? ' p' : ''}`} key={p.title} data-sr data-d={i + 1}>
+              {p.popular && <div className="plan-tag">{p.tag}</div>}
+              {!p.popular && <div className="plan-tag" style={{ background: 'rgba(255,255,255,0.05)', color: 'var(--silver2)' }}>{p.tag}</div>}
+              <h3>{p.title}</h3>
+              <div className="price">{p.price} <small>/ {p.period}</small></div>
+              <div className="plan-features">
+                {p.features.map(f => (
+                  <div className="plan-feat" key={f}>{f}</div>
+                ))}
+              </div>
+              <a href="#contact" className={p.popular ? "btn-p" : "btn-o"} style={{ width: '100%', justifyContent: 'center' }}>
+                Secure Consultation
+              </a>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  )
+}
+
+/* ─── Tech Insights ─────────────────────────────────────────── */
+function TechInsights() {
+  return (
+    <section className="sp" id="insights" style={{ background: 'var(--black)' }}>
+      <div className="blob" style={{ width: '600px', height: '600px', top: '50%', left: '50%', transform: 'translate(-50%,-50%)', background: 'radial-gradient(circle,rgba(0,240,255,0.08),transparent 70%)' }} />
+      <div className="wrap">
+        <div className="sh c" data-sr>
+          <span className="eye">Technical leadership</span>
+          <h2>Cybersecurity Insights.</h2>
+          <p className="sh-lead">Expert perspectives on the intersection of global regulation, identity risk, and technical resilience.</p>
+        </div>
+        <div className="insights-grid">
+          {TECH_INSIGHTS.map((post, i) => (
+            <div className="insight-card" key={post.title} data-sr data-d={i + 1}>
+              <div className="insight-img">
+                <img src={post.img} alt={post.title} />
+              </div>
+              <div className="insight-body">
+                <span className="insight-meta">{post.cat} · {post.date}</span>
+                <h3>{post.title}</h3>
+                <a href="#insights" className="insight-link">Read Executive Brief</a>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  )
+}
+
 /* ─── Technical Stack ───────────────────────────────────────── */
 function TechStack() {
   return (
@@ -731,6 +845,8 @@ export default function App() {
         <Process />
         <Engagements />
         <Testimonials />
+        <EngagementModels />
+        <TechInsights />
         <Leadership />
         <TechStack />
         <CTA />
