@@ -1,154 +1,55 @@
 import { useEffect, useRef, useState } from 'react'
 import './App.css'
-import innyPortrait from './assets/inny-s.jpg'
-import insight1 from './assets/insight-1.png'
-import insight2 from './assets/insight-2.png'
+import * as Data from './data/content'
 
-/* ─── Data ──────────────────────────────────────────────────── */
-const NAV_LINKS = [
-  { href: '#about',       label: 'About'       },
-  { href: '#evolution',   label: 'Career'      },
-  { href: '#engagements', label: 'Engagements' },
-  { href: '#insights',    label: 'Insights'    },
-  { href: '#stack',       label: 'Stack'       },
-]
+/* ─── Hooks ─────────────────────────────────────────────────── */
+function useCustomCursor() {
+  const dotRef = useRef(null)
+  const ringRef = useRef(null)
+  const [active, setActive] = useState(false)
 
-const MARQUEE_ITEMS = [
-  '🏛 GovTech & Identity', '🏦 Digital Banking', '🏥 Critical Healthcare',
-  '💳 Fintech & Payments', '🛡 Critical Infrastructure',
-  '🌍 National Identity Systems', '⚖ Regulatory Compliance', '🔐 SOC Operations',
-]
+  useEffect(() => {
+    const onMove = e => {
+      if (dotRef.current) {
+        dotRef.current.style.left = `${e.clientX}px`
+        dotRef.current.style.top = `${e.clientY}px`
+      }
+      if (ringRef.current) {
+        ringRef.current.animate({
+          left: `${e.clientX}px`,
+          top: `${e.clientY}px`
+        }, { duration: 500, fill: 'forwards', easing: 'ease-out' })
+      }
+    }
+    const onDown = () => setActive(true)
+    const onUp = () => setActive(false)
 
-const STATS = [
-  { num: 100, suffix: 'M+', label: 'Identity records secured'   },
-  { num: 35,  suffix: '+',  label: 'Global markets harmonised'  },
-  { num: 3,   suffix: '',   label: 'Continents · One standard'  },
-  { num: 10,  suffix: '+',  label: 'Years of technical mastery' },
-]
+    window.addEventListener('mousemove', onMove)
+    window.addEventListener('mousedown', onDown)
+    window.addEventListener('mouseup', onUp)
+    return () => {
+      window.removeEventListener('mousemove', onMove)
+      window.removeEventListener('mousedown', onDown)
+      window.removeEventListener('mouseup', onUp)
+    }
+  }, [])
 
-const FEATURES = [
-  { icon: '🛡', title: 'Technical Depth',           desc: 'Full-stack engineering enables root-cause analysis others cannot reach.' },
-  { icon: '🌐', title: 'Global Regulatory Fluency',  desc: 'GDPR · HIPAA · NDPR · DORA · ISO 27001 — across three continents.'     },
-  { icon: '📊', title: 'Board-Level Communication',  desc: 'Translating complex technical risk into executive-ready strategy.'      },
-]
+  return { dotRef, ringRef, active }
+}
 
-const CHECKLIST = [
-  'Hardware & systems engineering foundation',
-  'Full-stack MERN development proficiency',
-  'SOC operations & threat intelligence',
-  'Cisco network architecture & design',
-  'ISO 27001 / NIST CSF 2.0 lead auditor',
-  'Multi-jurisdictional GRC roadmap design',
-]
-
-const CAREER = [
-  { num: '01', icon: '💾', title: 'Systems Engineering & Infrastructure',
-    desc: 'Hardware cloning, disciplined workstation preparation, and dependable Windows system configuration for stable operational environments.',
-    tags: ['Hardware', 'Windows', 'Infrastructure'] },
-  { num: '02', icon: '⚡', title: 'Full-Stack Software Development',
-    desc: 'Architecting end-to-end solutions using the MERN stack. I do not just audit software — I understand how it is built, deployed, and exploited.',
-    tags: ['React', 'Node.js', 'MongoDB'] },
-  { num: '03', icon: '🔐', title: 'Cybersecurity & SOC Operations',
-    desc: 'Hands-on defensive and offensive security practice, from Cisco network architecture to threat hunting with Wazuh and Elastic Stack.',
-    tags: ['SOC', 'Wazuh', 'Cisco'] },
-  { num: '04', icon: '🌍', title: 'Global GRC & Risk Leadership',
-    desc: 'Authoring risk registers, performing third-party audits, and designing multi-jurisdictional compliance roadmaps at enterprise scale.',
-    tags: ['ISO 27001', 'NIST', 'DORA'] },
-]
-
-const PROCESS = [
-  { num: '01', title: 'Discovery & Threat Modelling',
-    desc: 'Deep-dive assessment of technical architecture, regulatory obligations, and the current threat landscape — from the board down to the API layer.' },
-  { num: '02', title: 'Risk Register & Gap Analysis',
-    desc: 'Comprehensive risk identification, likelihood and impact scoring across all asset classes, mapped against the relevant compliance framework.' },
-  { num: '03', title: 'Roadmap Design & Control Alignment',
-    desc: 'Prioritised remediation roadmaps with clear ownership, timelines, and measurable metrics — in language your board will act on.' },
-  { num: '04', title: 'Continuous Monitoring & Assurance',
-    desc: 'Ongoing control validation, third-party assurance testing, and iterative improvement that adapts to an evolving threat environment.' },
-]
-
-const ENGAGEMENTS = [
-  { geo: 'GovTech & Identity · Africa',        title: 'Lead GRC Auditor — NIMC',
-    problem: 'API data exposure involving 100 million national identity records — one of the largest identity risk events in African GovTech history.',
-    solution: 'Designed an immediate API isolation strategy and a three-year cybersecurity investment roadmap aligned with NDPA and NDPR frameworks.' },
-  { geo: 'Digital Banking & Fintech · Europe',  title: 'Senior Risk Consultant — Revolut',
-    problem: 'A $20 million payment logic flaw and complex insider threat scenarios spanning 35+ regulated markets.',
-    solution: 'Harmonised security operations across all markets and established a DORA-ready control baseline, significantly reducing cross-border compliance risk.' },
-  { geo: 'Critical Healthcare · North America', title: 'GRC Strategist — Epic Systems',
-    problem: 'Ransomware resilience in the wake of systemic supply chain breaches affecting global hospital networks.',
-    solution: 'Developed a Ransomware Resilience Certification framework and ensured HIPAA and NIST SP 800-161 alignment for all clinical systems.' },
-]
-
-const TESTIMONIALS = [
-  { initials: 'DA', name: 'Director of IT, NIMC',              role: 'GovTech · Nigeria',
-    quote: 'Inny brought a level of technical precision and regulatory fluency we rarely see in a single consultant. The NDPR roadmap was board-approved within two weeks.' },
-  { initials: 'CM', name: 'Chief Risk Officer, Revolut',       role: 'Fintech · Europe',
-    quote: "The DORA readiness assessment was executed with extraordinary depth. Inny's understanding of both technical controls and regulatory nuance accelerated our programme by months." },
-  { initials: 'TK', name: 'VP Healthcare Security, Epic Systems', role: 'Healthcare · North America',
-    quote: 'Inny delivered a ransomware resilience framework that our legal, clinical, and engineering teams could all align to. A rare communicator who operates at every level.' },
-]
-
-const STACK = [
-  { icon: '📋', title: 'Frameworks',     tags: ['NIST CSF 2.0', 'ISO 27001:2022', 'ISO 31000', 'NIST SP 800-161'] },
-  { icon: '⚖️', title: 'Regulatory',    tags: ['GDPR', 'HIPAA', 'NDPR / NDPA', 'DORA'] },
-  { icon: '🔍', title: 'Security Tools', tags: ['Wazuh', 'Elastic Stack', 'Nmap', 'Nessus', 'Burp Suite', 'Cisco Packet Tracer'] },
-  { icon: '💻', title: 'Development',   tags: ['React.js', 'Node.js', 'MongoDB', 'Linux (Ubuntu 22.04)'] },
-]
-
-const ENGAGEMENT_MODELS = [
-  {
-    title: 'Strategic Audit & Advisory',
-    price: 'Custom', period: 'Engagement',
-    tag: 'Roadmap Focus',
-    features: [
-      'Comprehensive gap analysis & risk register',
-      'NIST CSF 2.0 / ISO 27001 readiness',
-      'Regulatory compliance mapping (GDPR/DORA)',
-      'Executive remediation strategy'
-    ]
-  },
-  {
-    title: 'Fractional CISO & Governance',
-    price: 'Flexible', period: 'Retainer',
-    tag: 'Continuous Assurance',
-    popular: true,
-    features: [
-      'Ongoing board-level technical advisory',
-      'Security Operations (SOC) oversight',
-      'Third-party risk management (TPRM)',
-      'Incident response & recovery leadership'
-    ]
-  }
-]
-
-const TECH_INSIGHTS = [
-  {
-    img: insight1,
-    cat: 'Regulatory Compliance',
-    title: 'The Future of DORA: Harmonising Digital Resilience in EU Fintech',
-    date: 'April 2026'
-  },
-  {
-    img: insight2,
-    cat: 'Identity Security',
-    title: 'Identity Risk at Scale: Lessons from National ID Commission Breaches',
-    date: 'March 2026'
-  },
-  {
-    img: insight1, // Reusing if 3rd not gen'd
-    cat: 'Strategic GRC',
-    title: 'Engineering Governance: Moving from Reactive to Resilient Compliance',
-    date: 'February 2026'
-  }
-]
-
-const LEAD_LIST = [
-  'Global financial regulatory compliance',
-  'Blockchain-native payment rails',
-  'Threat-resilient infrastructure design',
-  'Multi-jurisdictional legal framework',
-  'Executive leadership & team building',
-]
+function useScrollProgress() {
+  const [progress, setProgress] = useState(0)
+  useEffect(() => {
+    const onScroll = () => {
+      const winScroll = document.body.scrollTop || document.documentElement.scrollTop
+      const height = document.documentElement.scrollHeight - document.documentElement.clientHeight
+      setProgress((winScroll / height) * 100)
+    }
+    window.addEventListener('scroll', onScroll, { passive: true })
+    return () => window.removeEventListener('scroll', onScroll)
+  }, [])
+  return progress
+}
 
 /* ─── Hooks ─────────────────────────────────────────────────── */
 function useScrollReveal() {
@@ -300,7 +201,7 @@ function Navbar() {
           </button>
 
           <ul className={`nav-links${open ? ' open' : ''}`} id="nav-links" role="list">
-            {NAV_LINKS.map(l => (
+            {Data.NAV_LINKS.map(l => (
               <li key={l.href}>
                 <a className="nl-link" href={l.href} onClick={() => setOpen(false)}>{l.label}</a>
               </li>
@@ -346,7 +247,7 @@ function Hero() {
 
           <div className="hero-visual" data-sr data-d2="">
             <div className="portrait">
-              <img src={innyPortrait} alt="Inny Stevens — formal portrait" loading="eager" />
+              <img src={Data.PORTRAIT} alt="Inny Stevens — formal portrait" loading="eager" />
               <div className="portrait-badge">
                 <p className="portrait-badge-label">Executive Profile</p>
                 <ul>
@@ -365,7 +266,7 @@ function Hero() {
 
 /* ─── Trust Bar ─────────────────────────────────────────────── */
 function TrustBar() {
-  const doubled = [...MARQUEE_ITEMS, ...MARQUEE_ITEMS]
+  const doubled = [...Data.MARQUEE_ITEMS, ...Data.MARQUEE_ITEMS]
   return (
     <div className="trust-bar" aria-label="Sectors served">
       <div className="marquee-track">
@@ -384,7 +285,7 @@ function Stats() {
       <div className="circ" style={{ opacity: 0.22 }} />
       <div className="wrap">
         <div className="stats-grid">
-          {STATS.map((s, i) => (
+          {Data.STATS.map((s, i) => (
             <div className="stat-item" key={s.label} data-sr data-d={i > 0 ? i : undefined}>
               <span className="stat-num">
                 <span className="counter-num" data-target={s.num}>0</span>{s.suffix}
@@ -414,7 +315,7 @@ function ValueProp() {
             <p>Most organisations view security as a technical hurdle. I view it as a foundational competitive advantage. With a career rooted in systems engineering and full-stack development, I possess the rare ability to audit a system from the motherboard up to the global regulatory framework.</p>
             <p>Whether navigating NIST CSF 2.0, ensuring DORA readiness in European Fintech, or securing 100 million-plus records for national identity commissions, I deliver the oversight high-stakes operations require to scale with confidence.</p>
             <div className="feat-list">
-              {FEATURES.map(f => (
+              {Data.FEATURES.map(f => (
                 <div className="feat-item" key={f.title}>
                   <div className="feat-icon">{f.icon}</div>
                   <div className="feat-text"><strong>{f.title}</strong><span>{f.desc}</span></div>
@@ -429,7 +330,7 @@ function ValueProp() {
               <h3 style={{ color: '#fff', marginBottom: '8px' }}>Multi-Layer Security Mastery</h3>
               <p style={{ color: 'var(--silver)', fontSize: '0.93rem' }}>From the physical layer to the boardroom — a complete command of the security stack.</p>
               <ul className="check-list">
-                {CHECKLIST.map(item => <li key={item}>{item}</li>)}
+                {Data.CHECKLIST.map(item => <li key={item}>{item}</li>)}
               </ul>
             </div>
           </div>
@@ -452,7 +353,7 @@ function CareerEvolution() {
           <p className="sh-lead">A formal narrative across engineering, development, cybersecurity operations, and strategic governance.</p>
         </div>
         <div className="svc-grid">
-          {CAREER.map((c, i) => (
+          {Data.CAREER.map((c, i) => (
             <div className="svc-card" key={c.title} data-sr data-d={i + 1}>
               <div className="svc-num">{c.num}</div>
               <div className="svc-icon">{c.icon}</div>
@@ -478,7 +379,7 @@ function Process() {
           <p className="sh-lead">A proven four-phase methodology for high-stakes GRC and cybersecurity engagements.</p>
         </div>
         <div className="process-grid">
-          {PROCESS.map((p, i) => (
+          {Data.PROCESS.map((p, i) => (
             <div className="process-item" key={p.title} data-sr data-d={i + 1}>
               <div className="process-dot">{p.num}</div>
               <h3>{p.title}</h3>
@@ -504,7 +405,7 @@ function Engagements() {
           <p className="sh-lead">Solving extreme complexity at the intersection of technology, regulation, and risk — across three continents.</p>
         </div>
         <div className="eng-grid">
-          {ENGAGEMENTS.map((e, i) => (
+          {Data.ENGAGEMENTS.map((e, i) => (
             <div className="eng-card" key={e.title} data-sr data-d={i + 1}>
               <div className="eng-top">
                 <div><p className="eng-geo">{e.geo}</p><h3>{e.title}</h3></div>
@@ -536,7 +437,7 @@ function Testimonials() {
     }
   }
 
-  const next = () => goTo((cur + 1) % TESTIMONIALS.length)
+  const next = () => goTo((cur + 1) % Data.TESTIMONIALS.length)
 
   useEffect(() => {
     autoRef.current = setInterval(next, 4500)
@@ -564,13 +465,13 @@ function Testimonials() {
           onTouchEnd={e => {
             const dx = e.changedTouches[0].clientX - touchX.current
             if (Math.abs(dx) > 50) {
-              goTo(dx < 0 ? Math.min(cur + 1, TESTIMONIALS.length - 1) : Math.max(cur - 1, 0))
+              goTo(dx < 0 ? Math.min(cur + 1, Data.TESTIMONIALS.length - 1) : Math.max(cur - 1, 0))
               pause(); resume()
             }
           }}
         >
           <div className="test-track" ref={trackRef}>
-            {TESTIMONIALS.map(t => (
+            {Data.TESTIMONIALS.map(t => (
               <div className="test-card" key={t.name}>
                 <div className="stars">{[...Array(5)].map((_, i) => <span className="star" key={i}>★</span>)}</div>
                 <p className="test-quote">{t.quote}</p>
@@ -584,7 +485,7 @@ function Testimonials() {
         </div>
 
         <div className="slider-dots">
-          {TESTIMONIALS.map((_, i) => (
+          {Data.TESTIMONIALS.map((_, i) => (
             <button key={i} className={`sdot${cur === i ? ' active' : ''}`} onClick={() => { goTo(i); pause(); resume() }} aria-label={`Slide ${i + 1}`} />
           ))}
         </div>
@@ -617,7 +518,7 @@ function Leadership() {
             <h3>Payledger</h3>
             <p>Secure, blockchain-based cross-border payment infrastructure — built from the ground up with security-first architecture.</p>
             <ul className="lead-list">
-              {LEAD_LIST.map(item => <li key={item}>{item}</li>)}
+              {Data.LEAD_LIST.map(item => <li key={item}>{item}</li>)}
             </ul>
           </div>
         </div>
@@ -638,7 +539,7 @@ function EngagementModels() {
           <p className="sh-lead">Scalable strategic oversight tailored for enterprise governance and high-stakes technical operations.</p>
         </div>
         <div className="plans-grid">
-          {ENGAGEMENT_MODELS.map((p, i) => (
+          {Data.ENGAGEMENT_MODELS.map((p, i) => (
             <div className={`plan-card${p.popular ? ' p' : ''}`} key={p.title} data-sr data-d={i + 1}>
               {p.popular && <div className="plan-tag">{p.tag}</div>}
               {!p.popular && <div className="plan-tag" style={{ background: 'rgba(255,255,255,0.05)', color: 'var(--silver2)' }}>{p.tag}</div>}
@@ -672,7 +573,7 @@ function TechInsights() {
           <p className="sh-lead">Expert perspectives on the intersection of global regulation, identity risk, and technical resilience.</p>
         </div>
         <div className="insights-grid">
-          {TECH_INSIGHTS.map((post, i) => (
+          {Data.TECH_INSIGHTS.map((post, i) => (
             <div className="insight-card" key={post.title} data-sr data-d={i + 1}>
               <div className="insight-img">
                 <img src={post.img} alt={post.title} />
@@ -703,7 +604,7 @@ function TechStack() {
           <p className="sh-lead">A comprehensive toolkit spanning governance frameworks, regulatory regimes, security tooling, and software engineering.</p>
         </div>
         <div className="stack-grid">
-          {STACK.map((s, i) => (
+          {Data.STACK.map((s, i) => (
             <div className="stack-card" key={s.title} data-sr data-d={i + 1}>
               <div className="stack-head">
                 <div className="stack-icon">{s.icon}</div>
@@ -829,11 +730,17 @@ function Footer() {
 /* ─── App ───────────────────────────────────────────────────── */
 export default function App() {
   const canvasRef = useParticleCanvas()
+  const { dotRef, ringRef, active } = useCustomCursor()
+  const scrollProgress = useScrollProgress()
   useScrollReveal()
   useCounters()
 
   return (
-    <>
+    <div className={active ? 'cursor-active' : ''}>
+      <div className="scroll-bar" style={{ width: `${scrollProgress}%` }} />
+      <div className="cursor-dot" ref={dotRef} />
+      <div className="cursor-ring" ref={ringRef} />
+
       <canvas ref={canvasRef} className="bg-canvas" aria-hidden="true" />
       <Navbar />
       <main>
@@ -852,6 +759,6 @@ export default function App() {
         <CTA />
       </main>
       <Footer />
-    </>
+    </div>
   )
 }
