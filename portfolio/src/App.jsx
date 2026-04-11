@@ -248,14 +248,14 @@ function Hero() {
           <div className="hero-visual" data-sr data-d2="">
             <div className="portrait">
               <img src={Data.PORTRAIT} alt="Inny Stevens — formal portrait" loading="eager" />
-              <div className="portrait-badge">
-                <p className="portrait-badge-label">Executive Profile</p>
-                <ul>
-                  <li>Multi-disciplinary command · Engineering · Cyber · GRC</li>
-                  <li>Delivery across Africa, Europe &amp; North America</li>
-                  <li>Board-ready communication grounded in technical depth</li>
-                </ul>
-              </div>
+            </div>
+            <div className="portrait-badge">
+              <p className="portrait-badge-label">Executive Profile</p>
+              <ul>
+                <li>Multi-disciplinary command · Engineering · Cyber · GRC</li>
+                <li>Delivery across Africa, Europe &amp; North America</li>
+                <li>Board-ready communication grounded in technical depth</li>
+              </ul>
             </div>
           </div>
         </div>
