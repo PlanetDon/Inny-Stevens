@@ -51,7 +51,19 @@ const loadRecaptcha = (siteKey) =>
 const executeRecaptcha = async (siteKey) => {
   if (!siteKey || typeof window === 'undefined') return null
   const grecaptcha = await loadRecaptcha(siteKey)
-  return grecaptcha.execute(siteKey, { action: 'contact_form' })
+
+  return new Promise((resolve, reject) => {
+    if (!grecaptcha || typeof grecaptcha.ready !== 'function') {
+      reject(new Error('reCAPTCHA failed to initialize.'))
+      return
+    }
+
+    grecaptcha.ready(() => {
+      grecaptcha.execute(siteKey, { action: 'contact_form' })
+        .then(resolve)
+        .catch(() => reject(new Error('reCAPTCHA execution failed.')))
+    })
+  })
 }
 
 export default function ContactForm() {
@@ -104,14 +116,29 @@ export default function ContactForm() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ ...payload, recaptchaToken: token }),
       })
-      const result = await response.json()
+
+      const contentType = response.headers.get('content-type') || ''
+      let result = null
+      let errorMessage = 'Unable to send message, please try again.'
+
+      if (contentType.includes('application/json')) {
+        result = await response.json()
+      } else {
+        const text = await response.text()
+        result = { message: text }
+      }
 
       if (!response.ok) {
-        throw new Error(result?.error || 'Unable to send message, please try again.')
+        if (result?.error) {
+          errorMessage = result.error
+        } else if (result?.message) {
+          errorMessage = result.message
+        }
+        throw new Error(errorMessage)
       }
 
       setStatus('success')
-      setFeedback('Message sent successfully. I will be in touch soon.')
+      setFeedback(result?.message || 'Message sent successfully. I will be in touch soon.')
       setForm(initialState)
     } catch (error) {
       setStatus('error')
