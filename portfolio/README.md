@@ -17,6 +17,24 @@ Then open the local URL printed by Vite, which is usually:
 http://localhost:5173/
 ```
 
+## Environment
+
+Create a local `.env` file from `.env.example` and set the required values before running the app.
+
+Required environment variables:
+
+- `SENDGRID_API_KEY`
+- `SENDGRID_FROM_EMAIL`
+- `CONTACT_EMAIL`
+- `RECAPTCHA_SECRET_KEY`
+- `VITE_RECAPTCHA_SITE_KEY`
+
+The client-side contact form uses `VITE_RECAPTCHA_SITE_KEY` for spam protection, while the API route verifies tokens with `RECAPTCHA_SECRET_KEY`.
+
+Optional environment variables:
+
+- `ENABLE_CONTACT_LOGGING` (set to `true` to enable request logging in the contact API)
+
 ## Important
 
 Do not open `portfolio/index.html` directly with Live Server at a URL such as
