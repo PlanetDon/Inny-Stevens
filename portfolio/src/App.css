@@ -85,6 +85,7 @@ section { position: relative; overflow: hidden; }
 /* ═══ BUTTONS ═══════════════════════════════════════════════ */
 .btn-p {
   display: inline-flex; align-items: center; gap: 8px;
+  min-width: 0; flex-shrink: 1;
   height: 52px; padding: 0 30px; border-radius: 999px;
   background: linear-gradient(100deg, var(--blue), var(--blue2));
   color: #fff; font-weight: 700; font-size: 0.95rem;
@@ -95,6 +96,7 @@ section { position: relative; overflow: hidden; }
 
 .btn-o {
   display: inline-flex; align-items: center; gap: 8px;
+  min-width: 0; flex-shrink: 1;
   height: 52px; padding: 0 30px; border-radius: 999px;
   border: 1px solid rgba(0, 240, 255, 0.35); color: var(--cyan);
   font-weight: 700; font-size: 0.95rem; background: rgba(0, 240, 255, 0.05);
@@ -625,7 +627,17 @@ section { position: relative; overflow: hidden; }
   .stats-grid { grid-template-columns: 1fr 1fr; }
   .foot-top { grid-template-columns: 1fr; }
   .foot-bottom { flex-direction: column; align-items: flex-start; }
-  .hero-actions, .cta-actions { flex-direction: column; }
-  .btn-p, .btn-o { justify-content: center; }
+  .hero-actions, .cta-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .hero-actions a, .cta-actions a {
+    width: 100%;
+    max-width: 100%;
+  }
+  .btn-p, .btn-o {
+    justify-content: center;
+    min-width: 0;
+  }
   .hero-section { padding: 100px 0 60px; }
 }
