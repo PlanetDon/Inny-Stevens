@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import './App.css'
 import * as Data from './data/content'
+import ContactForm from './components/ContactForm'
 
 /* ─── Hooks ─────────────────────────────────────────────────── */
 function useCustomCursor() {
@@ -621,52 +622,7 @@ function TechStack() {
 
 /* ─── CTA ───────────────────────────────────────────────────── */
 function CTA() {
-  const [email, setEmail] = useState('')
-  const [status, setStatus] = useState('idle') // idle | success | error
-
-  const handleSubscribe = () => {
-    if (email && email.includes('@')) {
-      setStatus('success')
-      setTimeout(() => { setStatus('idle'); setEmail('') }, 3000)
-    } else {
-      setStatus('error')
-      setTimeout(() => setStatus('idle'), 2000)
-    }
-  }
-
-  return (
-    <section className="cta-section" id="contact">
-      <div className="circ" style={{ opacity: 0.3 }} />
-      <div className="wrap">
-        <div className="cta-inner" data-sr>
-          <span className="eye" style={{ justifyContent: 'center' }}>Final call to action</span>
-          <h2>Solving Extreme Complexity.</h2>
-          <p>Whether you are a government entity securing a nation&apos;s data or a Fintech leader scaling across borders, I provide the technical depth and strategic foresight required to remain resilient.</p>
-          <div className="cta-actions">
-            <a className="btn-p" href="mailto:hello@payledger.io">Initiate Professional Inquiry</a>
-            <a className="btn-o" href="https://linkedin.com" target="_blank" rel="noopener noreferrer">Connect on LinkedIn</a>
-          </div>
-          <div className="email-row" style={{ borderColor: status === 'error' ? '#ff4d6d' : undefined }}>
-            <input
-              type="email"
-              placeholder="Enter your email address"
-              value={email}
-              onChange={e => setEmail(e.target.value)}
-              onKeyDown={e => e.key === 'Enter' && handleSubscribe()}
-              aria-label="Email address"
-            />
-            <button
-              type="button"
-              onClick={handleSubscribe}
-              style={status === 'success' ? { background: '#10b981' } : undefined}
-            >
-              {status === 'success' ? '✓ Done!' : 'Subscribe'}
-            </button>
-          </div>
-        </div>
-      </div>
-    </section>
-  )
+  return <ContactForm />
 }
 
 /* ─── Footer ────────────────────────────────────────────────── */
