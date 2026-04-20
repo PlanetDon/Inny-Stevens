@@ -208,6 +208,12 @@ function Navbar() {
               </li>
             ))}
             <li>
+              <a className="nl-link" href="#" download="Inny_Stevens_CV.pdf" onClick={() => setOpen(false)}>CV</a>
+            </li>
+            <li>
+              <a className="nl-link" href="https://github.com/PlanetDon" target="_blank" rel="noopener noreferrer" onClick={() => setOpen(false)}>GitHub</a>
+            </li>
+            <li>
               <a className="nav-cta nl-link" href="#contact" onClick={() => setOpen(false)}>
                 Let&apos;s Connect →
               </a>
@@ -236,7 +242,8 @@ function Hero() {
             <p className="hero-sub">From hardware architecture to multi-continental GRC strategy. I translate technical complexity into boardroom clarity for the world&apos;s most regulated sectors.</p>
             <div className="hero-actions">
               <a className="btn-p" href="#engagements">View Strategic Engagements</a>
-              <a className="btn-o" href="mailto:hello@payledger.io">Download Executive Brief</a>
+              <a className="btn-o" href="#" download="Inny_Stevens_CV.pdf">Download CV</a>
+              <a className="btn-o" href="https://github.com/PlanetDon" target="_blank" rel="noopener noreferrer">GitHub</a>
             </div>
             <div className="proof">
               <div className="av-stack">
@@ -665,7 +672,8 @@ function Footer() {
             <ul>
               <li><a href="mailto:hello@payledger.io">hello@payledger.io</a></li>
               <li><a href="https://linkedin.com" target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
-              <li><a href="https://github.com" target="_blank" rel="noopener noreferrer">GitHub</a></li>
+              <li><a href="https://github.com/PlanetDon" target="_blank" rel="noopener noreferrer">GitHub</a></li>
+              <li><a href="#" download="Inny_Stevens_CV.pdf">Download CV</a></li>
               <li><a href="#leadership">Payledger</a></li>
             </ul>
           </div>
@@ -674,7 +682,7 @@ function Footer() {
           <p>&copy; 2026 Inny Stevens. All Rights Reserved. Lagos, Nigeria &mdash; Global Consultant.</p>
           <div className="foot-socials">
             <a className="soc-btn" href="https://linkedin.com" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">in</a>
-            <a className="soc-btn" href="https://github.com" target="_blank" rel="noopener noreferrer" aria-label="GitHub">gh</a>
+            <a className="soc-btn" href="https://github.com/PlanetDon" target="_blank" rel="noopener noreferrer" aria-label="GitHub">gh</a>
             <a className="soc-btn" href="mailto:hello@payledger.io" aria-label="Email">@</a>
           </div>
         </div>
