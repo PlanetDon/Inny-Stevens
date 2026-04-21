@@ -502,7 +502,7 @@ function Testimonials() {
   )
 }
 
-/* ─── Payledger / Leadership ────────────────────────────────── */
+/* ─── Ventures & Innovation ─────────────────────────────────── */
 function Leadership() {
   return (
     <section className="sp lead-section" id="leadership">
@@ -527,6 +527,30 @@ function Leadership() {
             <p>Secure, blockchain-based cross-border payment infrastructure — built from the ground up with security-first architecture.</p>
             <ul className="lead-list">
               {Data.LEAD_LIST.map(item => <li key={item}>{item}</li>)}
+            </ul>
+          </div>
+        </div>
+
+        <div className="lead-grid" style={{ marginTop: '100px' }}>
+          <div className="lead-text" data-sr>
+            <span className="eye">Entrepreneurship</span>
+            <h2 style={{ marginBottom: '14px' }}>Innovation in PropTech.</h2>
+            <p>PropSocial is a <strong>real estate and financial technology platform</strong> that connects property discovery, transactions, and social interaction in one ecosystem.</p>
+            <p>It enables users to <strong>buy, sell, and explore properties</strong> with AI-powered verification and real-time data insights.</p>
+            <p>The platform integrates <strong>secure payments, blockchain-backed transparency, and compliance systems</strong>. Users can interact through <strong>social features, messaging, and live communication tools</strong>, making property engagement more dynamic.</p>
+            <div className="lead-tags">
+              {['Real Estate Tech', 'Event-Driven Infrastructure', 'Social Networking', 'Marketplace & Fintech'].map(t => (
+                <span className="lead-tag" key={t}>{t}</span>
+              ))}
+            </div>
+          </div>
+
+          <div className="lead-visual" data-sr data-d2="">
+            <div className="lead-big">🏙️</div>
+            <h3>PropSocial</h3>
+            <p>A scalable, event-driven infrastructure that combines marketplace, fintech, and social networking into a single digital experience.</p>
+            <ul className="lead-list">
+              {Data.PROPSOCIAL_LIST.map(item => <li key={item}>{item}</li>)}
             </ul>
           </div>
         </div>

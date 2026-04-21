@@ -148,4 +148,12 @@ export const LEAD_LIST = [
   'Executive leadership & team building',
 ]
 
+export const PROPSOCIAL_LIST = [
+  'AI-powered property verification',
+  'Blockchain-backed transparency',
+  'Integrated secure payments',
+  'Social & live communication tools',
+  'Scalable event-driven infrastructure',
+]
+
 export const PORTRAIT = innyPortrait
