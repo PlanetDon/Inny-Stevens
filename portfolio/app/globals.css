@@ -1,0 +1,90 @@
+@import "tailwindcss";
+
+:root {
+  --bg: #060a14;
+  --surface: #0b1120;
+  --surface-soft: #10182c;
+  --text-primary: #f5f8ff;
+  --text-secondary: #b8c1d8;
+  --text-muted: #8e98b3;
+  --line: rgba(128, 150, 197, 0.2);
+  --line-strong: rgba(72, 222, 255, 0.48);
+  --accent-soft: #3be6ff;
+  --accent-strong: linear-gradient(105deg, #005bff, #1a7dff);
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    --bg: #edf2fb;
+    --surface: #f9fbff;
+    --surface-soft: #eef3ff;
+    --text-primary: #10182b;
+    --text-secondary: #3e4a67;
+    --text-muted: #5f6c8c;
+    --line: rgba(74, 98, 147, 0.19);
+    --line-strong: rgba(0, 133, 197, 0.42);
+    --accent-soft: #0086c9;
+    --accent-strong: linear-gradient(105deg, #0f5ee8, #0aa7d6);
+  }
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  min-height: 100vh;
+  background: var(--bg);
+  color: var(--text-secondary);
+  font-family: "Trebuchet MS", "Segoe UI", sans-serif;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: "Cambria", "Georgia", serif;
+}
+
+.section-shell {
+  padding: 5.5rem 0;
+}
+
+.logo-chip {
+  filter: grayscale(1);
+  opacity: 0.78;
+  transition: filter 0.25s ease, opacity 0.25s ease;
+}
+
+.group:hover .logo-chip {
+  filter: grayscale(0);
+  opacity: 1;
+}
+
+.gi-route {
+  animation: routeFlow 16s linear infinite;
+}
+
+@keyframes routeFlow {
+  from {
+    stroke-dashoffset: 0;
+  }
+
+  to {
+    stroke-dashoffset: -280;
+  }
+}
+
+@media (max-width: 768px) {
+  .section-shell {
+    padding: 4.25rem 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation: none !important;
+    transition-duration: 0.01ms !important;
+    transition-delay: 0ms !important;
+  }
+}

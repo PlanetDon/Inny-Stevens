@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import './App.css'
 import * as Data from './data/content'
 import ContactForm from './components/ContactForm'
+import GlobalImpactSection from './components/GlobalImpactSection'
 
 /* ─── Hooks ─────────────────────────────────────────────────── */
 function useCustomCursor() {
@@ -739,6 +740,7 @@ export default function App() {
         <CareerEvolution />
         <Process />
         <Engagements />
+        <GlobalImpactSection />
         <Testimonials />
         <EngagementModels />
         <TechInsights />

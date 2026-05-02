@@ -7,6 +7,7 @@ export const NAV_LINKS = [
   { href: '#about',       label: 'About'       },
   { href: '#evolution',   label: 'Career'      },
   { href: '#engagements', label: 'Engagements' },
+  { href: '#global-impact', label: 'Impact'    },
   { href: '#insights',    label: 'Insights'    },
   { href: '#stack',       label: 'Stack'       },
 ]
@@ -75,6 +76,56 @@ export const ENGAGEMENTS = [
   { geo: 'Critical Healthcare · North America', title: 'GRC Strategist — Epic Systems',
     problem: 'Ransomware resilience in the wake of systemic supply chain breaches affecting global hospital networks.',
     solution: 'Developed a Ransomware Resilience Certification framework and ensured HIPAA and NIST SP 800-161 alignment for all clinical systems.' },
+]
+
+export const GLOBAL_IMPACT_INTRO = 'Trusted by global institutions, nonprofits, and executive leaders to architect secure digital infrastructure, govern enterprise technology, and deliver scalable systems across international markets.'
+
+export const EXECUTIVE_LEADERSHIP = {
+  title: 'GLI International | CTO / CIO',
+  duration: '2023 - 2024',
+  description: 'Directed the digital transformation, enterprise technology strategy, and infrastructure governance for a global leadership institute. Oversaw platform scalability, cybersecurity, and technical operations supporting organizational initiatives across multiple continents.',
+  highlights: [
+    'Enterprise technology strategy',
+    'Infrastructure governance',
+    'Global cybersecurity oversight',
+  ],
+}
+
+export const GLOBAL_IMPACT_ITEMS = [
+  {
+    initials: 'GR',
+    name: 'GlobalReach Leadership Institute',
+    region: 'Virginia, USA',
+    impact: 'Architected digital infrastructure supporting leadership training and international outreach programs.',
+    cta: { label: 'View Project', href: '#contact' },
+  },
+  {
+    initials: '1H',
+    name: '1Hope4Haiti.org',
+    region: 'USA',
+    impact: 'Developed secure web infrastructure for international aid and donor engagement initiatives.',
+    cta: { label: 'View Project', href: '#contact' },
+  },
+  {
+    initials: 'SH',
+    name: 'Saint Hermanguild Foundation',
+    region: 'Nigeria / Australia',
+    impact: 'Designed cross-border digital systems facilitating foundation operations and stakeholder connectivity.',
+    cta: { label: 'View Project', href: '#contact' },
+  },
+  {
+    initials: 'LL',
+    name: 'Love & Life Ministry',
+    region: 'Nigeria',
+    impact: 'Built scalable digital platform supporting ministry operations and community engagement.',
+  },
+  {
+    initials: 'PT',
+    name: 'Dr. Pat Tamakloe',
+    region: 'Executive Advisory',
+    impact: 'Developed executive personal-branding and professional authority platform.',
+    cta: { label: 'View Project', href: '#contact' },
+  },
 ]
 
 export const TESTIMONIALS = [
