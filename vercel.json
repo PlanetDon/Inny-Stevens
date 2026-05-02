@@ -1,7 +1,7 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "framework": "nextjs",
-  "installCommand": "cd portfolio && npm ci",
-  "buildCommand": "cd portfolio && npm run build",
-  "devCommand": "cd portfolio && npm run dev"
+  "installCommand": "if [ -d portfolio ]; then cd portfolio && npm ci; else npm ci; fi",
+  "buildCommand": "if [ -d portfolio ]; then cd portfolio && npm run build; else npm run build; fi",
+  "devCommand": "if [ -d portfolio ]; then cd portfolio && npm run dev -- --port $PORT; else npm run dev -- --port $PORT; fi"
 }
