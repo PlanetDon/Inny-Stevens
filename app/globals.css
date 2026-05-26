@@ -1,30 +1,52 @@
 @import "tailwindcss";
 
 :root {
-  --bg: #060a14;
-  --surface: #0b1120;
-  --surface-soft: #10182c;
-  --text-primary: #f5f8ff;
-  --text-secondary: #b8c1d8;
-  --text-muted: #8e98b3;
-  --line: rgba(128, 150, 197, 0.2);
-  --line-strong: rgba(72, 222, 255, 0.48);
+  --bg: #040810;
+  --surface: #080e1a;
+  --surface-soft: #0c1528;
+  --surface-elevated: #111d35;
+  --text-primary: #edf2ff;
+  --text-secondary: #a8b5d8;
+  --text-muted: #7a88aa;
+  --line: rgba(100, 130, 190, 0.15);
+  --line-strong: rgba(60, 200, 255, 0.45);
   --accent-soft: #3be6ff;
-  --accent-strong: linear-gradient(105deg, #005bff, #1a7dff);
+  --accent-mid: #1a8aff;
+  --accent-strong: linear-gradient(105deg, #0055e0, #1a7dff);
+  --accent-warm: #00d4aa;
+  --risk-high: #ff4466;
+  --risk-medium: #ffaa33;
+  --risk-low: #33dd88;
+  --maturity-1: #1a3050;
+  --maturity-2: #1a4a70;
+  --maturity-3: #1a6a90;
+  --maturity-4: #1a8ab0;
+  --maturity-5: #3be6ff;
 }
 
 @media (prefers-color-scheme: light) {
   :root {
-    --bg: #edf2fb;
-    --surface: #f9fbff;
-    --surface-soft: #eef3ff;
-    --text-primary: #10182b;
-    --text-secondary: #3e4a67;
-    --text-muted: #5f6c8c;
-    --line: rgba(74, 98, 147, 0.19);
-    --line-strong: rgba(0, 133, 197, 0.42);
-    --accent-soft: #0086c9;
-    --accent-strong: linear-gradient(105deg, #0f5ee8, #0aa7d6);
+    --bg: #e8edf6;
+    --surface: #f4f7fc;
+    --surface-soft: #eaeff8;
+    --surface-elevated: #dce3f0;
+    --text-primary: #0a1228;
+    --text-secondary: #2d3a5a;
+    --text-muted: #5a6a8a;
+    --line: rgba(60, 90, 140, 0.18);
+    --line-strong: rgba(0, 120, 200, 0.4);
+    --accent-soft: #0077b3;
+    --accent-mid: #0066cc;
+    --accent-strong: linear-gradient(105deg, #0a55cc, #0a99cc);
+    --accent-warm: #00a080;
+    --risk-high: #cc2244;
+    --risk-medium: #cc8800;
+    --risk-low: #22aa55;
+    --maturity-1: #c0d0e8;
+    --maturity-2: #80b0d8;
+    --maturity-3: #4090c0;
+    --maturity-4: #2070a0;
+    --maturity-5: #005588;
   }
 }
 
@@ -36,18 +58,23 @@ body {
   min-height: 100vh;
   background: var(--bg);
   color: var(--text-secondary);
-  font-family: "Trebuchet MS", "Segoe UI", sans-serif;
+  font-family: "Inter", "SF Pro", "Segoe UI", system-ui, sans-serif;
+  font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-h1,
-h2,
-h3,
-h4 {
-  font-family: "Cambria", "Georgia", serif;
+h1, h2, h3, h4, h5, h6 {
+  font-family: "Cambria", "Georgia", "Times New Roman", serif;
+  letter-spacing: -0.01em;
 }
 
 .section-shell {
-  padding: 5.5rem 0;
+  padding: 6rem 0;
+}
+
+.section-shell-sm {
+  padding: 3.5rem 0;
 }
 
 .logo-chip {
@@ -62,27 +89,43 @@ h4 {
 }
 
 .gi-route {
-  animation: routeFlow 16s linear infinite;
+  animation: routeFlow 20s linear infinite;
 }
 
 @keyframes routeFlow {
-  from {
-    stroke-dashoffset: 0;
-  }
+  from { stroke-dashoffset: 0; }
+  to { stroke-dashoffset: -320; }
+}
 
-  to {
-    stroke-dashoffset: -280;
-  }
+@keyframes pulse-subtle {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.7; }
+}
+
+.pulse-subtle {
+  animation: pulse-subtle 3s ease-in-out infinite;
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-slide-up {
+  animation: slideUp 0.5s ease-out forwards;
 }
 
 @media (max-width: 768px) {
   .section-shell {
-    padding: 4.25rem 0;
+    padding: 4rem 0;
+  }
+  .section-shell-sm {
+    padding: 2.5rem 0;
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  * {
+  *, *::before, *::after {
     animation: none !important;
     transition-duration: 0.01ms !important;
     transition-delay: 0ms !important;

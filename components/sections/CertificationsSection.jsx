@@ -1,5 +1,4 @@
 import { motion } from 'framer-motion'
-
 import { CERTIFICATIONS } from '../../data/siteContent'
 import SectionHeading from '../ui/SectionHeading'
 
@@ -10,12 +9,12 @@ export default function CertificationsSection() {
     <section id="credentials" className="section-shell border-y border-[var(--line)] bg-[var(--surface)]">
       <div className="mx-auto w-full max-w-7xl px-5 md:px-8">
         <SectionHeading
-          eyebrow="Credentials"
-          title="Selected Certifications & Executive Education"
-          description="Curated to highlight practical depth across AI, cybersecurity, automation, and foundational computer science."
+          eyebrow="Professional Credentials"
+          title="Governance Certifications & Executive Education"
+          description="Curated credentials reflecting practical depth across cybersecurity governance, AI risk, compliance, and risk management."
         />
 
-        <div className="grid gap-5 lg:grid-cols-3">
+        <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
           {CERTIFICATIONS.map((group, index) => (
             <Motion.article
               key={group.group}
@@ -26,7 +25,7 @@ export default function CertificationsSection() {
               className="rounded-2xl border border-[var(--line)] bg-[var(--surface-soft)] p-6 shadow-[0_18px_34px_rgba(4,9,28,.28)]"
             >
               <h3 className="text-base font-semibold text-[var(--text-primary)]">{group.group}</h3>
-              <ul className="mt-4 space-y-3">
+              <ul className="mt-4 space-y-2">
                 {group.items.map(item => (
                   <li key={item} className="rounded-lg border border-[var(--line)] bg-[var(--surface)] px-3 py-2 text-sm text-[var(--text-secondary)]">
                     {item}
@@ -40,5 +39,3 @@ export default function CertificationsSection() {
     </section>
   )
 }
-
-

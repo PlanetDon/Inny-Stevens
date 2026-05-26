@@ -1,5 +1,4 @@
 import { motion } from 'framer-motion'
-
 import { FINAL_CTA } from '../../data/siteContent'
 import ButtonLink from '../ui/ButtonLink'
 import SecureContactForm from './SecureContactForm'
@@ -8,7 +7,7 @@ const Motion = motion
 
 export default function FinalCtaSection() {
   return (
-    <section id="final-cta" className="section-shell">
+    <section id="contact" className="section-shell">
       <div className="mx-auto w-full max-w-7xl px-5 md:px-8">
         <Motion.div
           initial={{ opacity: 0, y: 24 }}
@@ -20,7 +19,7 @@ export default function FinalCtaSection() {
           <div className="absolute inset-0 bg-[radial-gradient(80%_70%_at_15%_10%,rgba(0,91,255,.28),transparent_72%),radial-gradient(65%_70%_at_90%_90%,rgba(0,212,255,.2),transparent_74%)]" />
           <div className="relative">
             <p className="inline-flex rounded-full border border-[var(--line)] bg-[var(--surface-soft)] px-4 py-1 text-[11px] font-semibold uppercase tracking-[0.2em] text-[var(--accent-soft)]">
-              Executive Engagement
+              Governance Collaboration
             </p>
             <h2 className="mt-5 max-w-3xl text-balance text-3xl font-semibold text-[var(--text-primary)] md:text-5xl">
               {FINAL_CTA.headline}
@@ -35,14 +34,14 @@ export default function FinalCtaSection() {
               ))}
             </div>
 
-            <div id="contact" className="mt-8 grid gap-3 text-sm text-[var(--text-secondary)] md:grid-cols-3">
-              <a className="rounded-xl border border-[var(--line)] bg-[var(--surface-soft)] px-4 py-3" href="mailto:hello@payledger.io">
+            <div id="contact-form" className="mt-8 grid gap-3 text-sm text-[var(--text-secondary)] md:grid-cols-3">
+              <a className="rounded-xl border border-[var(--line)] bg-[var(--surface-soft)] px-4 py-3 transition hover:border-[var(--line-strong)]" href="mailto:hello@payledger.io">
                 hello@payledger.io
               </a>
-              <a className="rounded-xl border border-[var(--line)] bg-[var(--surface-soft)] px-4 py-3" href="https://github.com/PlanetDon" target="_blank" rel="noopener noreferrer">
+              <a className="rounded-xl border border-[var(--line)] bg-[var(--surface-soft)] px-4 py-3 transition hover:border-[var(--line-strong)]" href="https://github.com/PlanetDon" target="_blank" rel="noopener noreferrer">
                 github.com/PlanetDon
               </a>
-              <a className="rounded-xl border border-[var(--line)] bg-[var(--surface-soft)] px-4 py-3" href="https://linkedin.com" target="_blank" rel="noopener noreferrer">
+              <a className="rounded-xl border border-[var(--line)] bg-[var(--surface-soft)] px-4 py-3 transition hover:border-[var(--line-strong)]" href="https://linkedin.com" target="_blank" rel="noopener noreferrer">
                 linkedin.com
               </a>
             </div>
@@ -54,5 +53,3 @@ export default function FinalCtaSection() {
     </section>
   )
 }
-
-

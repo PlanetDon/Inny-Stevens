@@ -31,7 +31,7 @@ export default function GlobalImpactSection() {
       <MapAccent />
       <div className="mx-auto w-full max-w-7xl px-5 md:px-8">
         <SectionHeading
-          eyebrow="Cross-Border Delivery"
+          eyebrow="Cross-Border Governance"
           title="Global Impact"
           description={GLOBAL_IMPACT_INTRO}
         />
@@ -64,5 +64,3 @@ export default function GlobalImpactSection() {
     </section>
   )
 }
-
-

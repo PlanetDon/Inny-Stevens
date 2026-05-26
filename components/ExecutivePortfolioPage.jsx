@@ -2,8 +2,12 @@
 
 import Navbar from './sections/Navbar'
 import HeroSection from './sections/HeroSection'
-import TrustStrip from './sections/TrustStrip'
-import WhyHireSection from './sections/WhyHireSection'
+import TrustSignals from './sections/TrustSignals'
+import ValuePropositionSection from './sections/ValuePropositionSection'
+import GovernanceProjectsSection from './sections/GovernanceProjectsSection'
+import ResearchInsightsSection from './sections/ResearchInsightsSection'
+import FrameworksSection from './sections/FrameworksSection'
+import GovernanceVisualIntelligence from './sections/GovernanceVisualIntelligence'
 import ExecutiveLeadershipSection from './sections/ExecutiveLeadershipSection'
 import GlobalImpactSection from './sections/GlobalImpactSection'
 import CapabilityMatrixSection from './sections/CapabilityMatrixSection'
@@ -18,8 +22,12 @@ export default function ExecutivePortfolioPage() {
       <Navbar />
       <main>
         <HeroSection />
-        <TrustStrip />
-        <WhyHireSection />
+        <TrustSignals />
+        <ValuePropositionSection />
+        <GovernanceProjectsSection />
+        <ResearchInsightsSection />
+        <FrameworksSection />
+        <GovernanceVisualIntelligence />
         <ExecutiveLeadershipSection />
         <GlobalImpactSection />
         <CapabilityMatrixSection />
